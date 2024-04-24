@@ -1,0 +1,31 @@
+# permissions for end users to edit chaos.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: chaos-editor-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: chaos
+    app.kubernetes.io/part-of: chaos
+    app.kubernetes.io/managed-by: kustomize
+  name: chaos-editor-role
+rules:
+- apiGroups:
+  - chaos.chaos.philippmatthes
+  resources:
+  - chaos
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - chaos.chaos.philippmatthes
+  resources:
+  - chaos/status
+  verbs:
+  - get

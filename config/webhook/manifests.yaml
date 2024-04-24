@@ -1,0 +1,52 @@
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: mutating-webhook-configuration
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /mutate-chaos-chaos-philippmatthes-v1-chaos
+  failurePolicy: Fail
+  name: mchaos.kb.io
+  rules:
+  - apiGroups:
+    - chaos.chaos.philippmatthes
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - chaos
+  sideEffects: None
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: validating-webhook-configuration
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-chaos-chaos-philippmatthes-v1-chaos
+  failurePolicy: Fail
+  name: vchaos.kb.io
+  rules:
+  - apiGroups:
+    - chaos.chaos.philippmatthes
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - chaos
+  sideEffects: None

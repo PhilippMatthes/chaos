@@ -1,0 +1,22 @@
+apiVersion: chaos.chaos.philippmatthes/v1
+kind: Chaos
+metadata:
+  labels:
+    app.kubernetes.io/name: chaos
+    app.kubernetes.io/managed-by: kustomize
+  name: chaos-sample
+spec:
+  # Kill a random pod every 10 seconds
+  interval: 10
+
+--- # A pod to test the chaos on
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80

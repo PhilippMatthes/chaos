@@ -1,0 +1,27 @@
+# permissions for end users to view chaos.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: chaos-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: chaos
+    app.kubernetes.io/part-of: chaos
+    app.kubernetes.io/managed-by: kustomize
+  name: chaos-viewer-role
+rules:
+- apiGroups:
+  - chaos.chaos.philippmatthes
+  resources:
+  - chaos
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - chaos.chaos.philippmatthes
+  resources:
+  - chaos/status
+  verbs:
+  - get
